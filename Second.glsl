@@ -13,7 +13,7 @@ void main() {
   
   	vec2 nc = gl_FragCoord.xy/u_resolution;
 
-    float sintime = (sin(u_time)) /2.0) + 0.5;
+    float sintime = (sin(u_time) /2.0) + 0.5; //clamp(sin(u_time), 0.0, 0.5);
     float sintimed = (sin(u_time+2.0) /2.0) + 0.5;
     
     float costime = abs(cos(u_time));
