@@ -15,7 +15,7 @@ void main() {
     vec2 st = gl_FragCoord.xy/u_resolution;
     float c = pow(st.x, abs(sin(u_time/2.0)));
     float line = smoothstep(c-0.05, c, st.y) - smoothstep(c, c+0.05, st.y);
-
+  
     vec4 color = vec4(line) * vec4(1.0, 0.0, 0.0, 1.0);
 
     //float pct = plot(st,y);
