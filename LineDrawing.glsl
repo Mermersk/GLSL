@@ -18,7 +18,7 @@ void main() {
     smoothstep(nc.y, nc.y + 0.02, c);
     
 
-    vec3 color = line * vec3(0.0, 0.2, 1.0);
+    vec3 color = line * vec3(1.0, 0.2902, 0.0078);
     color.b = 0.3;
     
 
