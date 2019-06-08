@@ -19,17 +19,17 @@ void main() {
     float ss = smoothstep(nc.y + 0.01, nc.y, nc.x)
     + smoothstep(nc.y, nc.y - 0.01, nc.x);
 
-    float upRight = smoothstep(nc.y + 0.01, nc.y, nc.x) + smoothstep(nc.y, nc.y - 0.01, nc.x);
-    float downLeft = smoothstep(nc.y - 0.01, nc.y, nc.x) + smoothstep(nc.y, nc.y + 0.01, nc.x);
+    float upRight = smoothstep(nc.y + 0.05, nc.y, nc.x) + smoothstep(nc.y, nc.y - 0.05, nc.x);
+    float downLeft = smoothstep(nc.y - 0.05, nc.y, nc.x) + smoothstep(nc.y, nc.y + 0.05, nc.x);
 
-    vec3 color = (upRight * vec3(0.0471, 0.9608, 0.1098)) + (downLeft * vec3(0.098, 0.0, 1.0));
+    float upRightStep = step(0.5, nc.x) + step(0.6, nc.x);
+
+    vec3 color = (upRight * vec3(0.0471, 0.9608, 0.1098)) + (downLeft * vec3(0.3765, 0.0, 0.9882));
 
     //vec3 color2 = vec3(smoothstep(nc.y + 0.01, nc.y, nc.x)
     //+ smoothstep(nc.y, nc.y - 0.01, nc.x)) * vec3(0.1098, 0.502, 0.2275);
 
     gl_FragColor = vec4(color, 1.0);
-
-    
 
     /*
   vec2 point = gl_FragCoord.xy / u_resolution.xy;
