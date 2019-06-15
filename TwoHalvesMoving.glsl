@@ -15,9 +15,9 @@ float sinc( float x, float k ){
 }
 
 void main() {
-    
+    /*
     vec2 nc = gl_FragCoord.xy/u_resolution;
-   /*
+   
     float wave = nc.x * abs(cos(u_time));
     float wave2 = nc.x / abs(cos(u_time));
 
@@ -32,14 +32,15 @@ void main() {
     //+ smoothstep(nc.y, nc.y - 0.01, nc.x)) * vec3(0.1098, 0.502, 0.2275);
 
     gl_FragColor = vec4(color, 1.0);
-    */
+  */
+  vec2 nc = gl_FragCoord.xy/u_resolution;
   float wave = nc.x * abs(cos(u_time));
   float oneDividedByHeight = 1.0 / u_resolution.y;
   vec2 cp = vec2(cos(u_time),sin(u_time));
   float l = sinc(nc.x, cp.x);
-  vec3 color = vec3(smoothstep(l, l+oneDividedByHeight, nc.y), cos(u_time), cos(cp.y));
+  vec3 color = vec3(smoothstep(l, l+oneDividedByHeight, nc.y), asin(u_time), acos(cp.y));
     
   gl_FragColor = vec4(color, 1.0);
-  
+   
 
 }

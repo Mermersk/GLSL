@@ -9,7 +9,7 @@ uniform vec2 u_mouse;
 uniform float u_time; 
 
 float ease(float inputs) {
-    float outputs = 1.0 - pow(max(0.0, abs(inputs) * 2.0 - 1.0), 1.0);
+    float outputs = 0.5 - pow(max(0.0, abs(inputs) * 2.0 - 1.0), 1.0) - 0.1;
     return outputs;
 }
 
@@ -23,7 +23,7 @@ void main() {
     yellow.rg = vec2(1.0);  // Assigning 1. to red and green channels
     yellow[2] = 0.0;        // Assigning 0. to blue channel
 
-    // Making Magenta
+    // Making Magenta - Here swizzling is used
     magenta = yellow.rbg;   // Assign the channels with green and blue swapped
 
     // Making Green

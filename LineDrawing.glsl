@@ -17,10 +17,17 @@ void main() {
     float line = smoothstep(nc.y - 0.02, nc.y, c) - 
     smoothstep(nc.y, nc.y + 0.02, c);
     
+    vec3 green = vec3(0.302, 0.9216, 0.3529);
+    vec3 red = vec3(0.9, 0.0, 0.0);
 
-    vec3 color = line * vec3(0.302, 0.9216, 0.3529);
-    color.b = 0.6;
-    
+    //Old, Whole line is just one color, no changes
+    //vec3 color = line * vec3(0.302, 0.9216, 0.3529);
+
+    //Old, whole line changes color equally along every pixel
+    //vec3 color = line * mix(green, red, abs(tan(u_time)));
+
+    //New with smoothstep so tthat color changes in an gradient way
+    vec3 color = line * mix(green, red, smoothstep(0.0, abs(tan(u_time)), nc.x));
 
     gl_FragColor = vec4(color, 1.0);
 }
