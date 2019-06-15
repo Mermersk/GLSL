@@ -17,7 +17,7 @@ void main() {
     vec3 mixColor = vec3(1.0);
     mixColor = mix(mixColor, orange, smoothstep(0.0, 1.0, nc.x));
     mixColor = mix(mixColor, blue, smoothstep(1.0, 0.0, nc.x));
-    //mix(mixColor, blue, smoothstep(0.3, 0.45, nc.y));
+    //mixColor = mix(mixColor, blue, orange);
     //mixColor = mix(mixColor, blue, smoothstep(0.3, 0.45, nc.y));
 
 

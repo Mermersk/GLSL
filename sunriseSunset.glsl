@@ -18,7 +18,7 @@ void main() {
 
     float slowtime = u_time/2.0;
     
-    float ss = nc.y + smoothstep(0.0, abs(sin(slowtime))*20.0, nc.y-2.0);
+    float ss = nc.y + smoothstep(0.0, abs(sin(slowtime))*10.0, nc.y);
     mixColor = mix(orange, mixColor, ss);
 
 
