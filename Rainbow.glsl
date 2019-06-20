@@ -40,8 +40,8 @@ void main() {
     mixColor = mix(mixColor, green, greenBox);
     mixColor = mix(mixColor, orange, orangeBox);
     mixColor = mix(mixColor, red, redBox);
-    //mixColor = mix(mixColor, violet, nc.y);
-    //mixColor = mix(mixColor, orange, orangeBox);
+    //mixColor = mix(mixColor, violet, violet.r);
+    //mixColor = mix(mixColor, orange, orange.);
 
     
     vec3 hsbColor = vec3(nc.y, 1.0, abs(sin(u_time)));
