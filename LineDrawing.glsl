@@ -19,7 +19,7 @@ void main() {
     
     vec3 green = vec3(0.302, 0.9216, 0.3529);
     vec3 red = vec3(0.9, 0.0, 0.0);
-
+    
     //Old, Whole line is just one color, no changes
     //vec3 color = line * vec3(0.302, 0.9216, 0.3529);
 
@@ -28,6 +28,6 @@ void main() {
 
     //New with smoothstep so tthat color changes in an gradient way
     vec3 color = line * mix(green, red, smoothstep(0.0, abs(tan(u_time)), nc.x));
-
+   
     gl_FragColor = vec4(color, 1.0);
 }

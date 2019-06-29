@@ -1,4 +1,4 @@
-#ifdef GL_FRAGMENT_PRECISION_HIGH
+#ifdef GL_FRAGMENT_PRECISION_MEDIUM
 precision highp float;
 #else
 precision mediump float;

@@ -14,8 +14,36 @@ float sinc( float x, float k ){
   return sin(a)/a;
 }
 
+float testf(float coords, float time) {
+
+  float outputs = coords * time;
+  return sin(outputs)/outputs - 0.5; 
+
+}
+
 void main() {
-    /*
+  
+
+  vec2 nc = gl_FragCoord.xy/u_resolution;
+
+  float slowTime = u_time/10.0;
+
+  float wave = nc.x * cos(u_time); 
+  float ss = testf(nc.x, sin(u_time));
+
+  float testWave = nc.x - sin(u_time)-0.5;
+  testWave = sin(testWave)/testWave-0.4;
+
+  float lineUp = smoothstep(nc.y + 0.005, nc.y, testWave);
+  float lineDown = smoothstep(nc.y - 0.005, nc.y, testWave);
+  vec3 finalColor = lineUp * vec3(0.0824, 0.8863, 0.2824) + lineDown * vec3(0.2118, 0.051, 0.9216);
+
+  gl_FragColor = vec4(finalColor, 1.0);
+   
+}
+
+
+  /*
     vec2 nc = gl_FragCoord.xy/u_resolution;
    
     float wave = nc.x * abs(cos(u_time));
@@ -32,15 +60,12 @@ void main() {
     //+ smoothstep(nc.y, nc.y - 0.01, nc.x)) * vec3(0.1098, 0.502, 0.2275);
 
     gl_FragColor = vec4(color, 1.0);
-  */
+  
   vec2 nc = gl_FragCoord.xy/u_resolution;
   float wave = nc.x * abs(cos(u_time));
   float oneDividedByHeight = 1.0 / u_resolution.y;
   vec2 cp = vec2(cos(u_time),sin(u_time));
   float l = sinc(nc.x, cp.x);
   vec3 color = vec3(smoothstep(l, l+oneDividedByHeight, nc.y), asin(u_time), acos(cp.y));
-    
-  gl_FragColor = vec4(color, 1.0);
-   
-
-}
+  
+  */
