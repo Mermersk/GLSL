@@ -8,18 +8,6 @@ uniform vec2 u_resolution;
 uniform vec2 u_mouse;
 uniform float u_time;
 
-float sinc( float x, float k ){
-  float a = 3.1459265359 * k * x - 1.0;
-  
-  return sin(a)/a;
-}
-
-float testf(float coords, float time) {
-
-  float outputs = coords * time;
-  return sin(outputs)/outputs - 0.5; 
-
-}
 
 void main() {
   
@@ -29,21 +17,17 @@ void main() {
   nc = nc / vec2(0.5);
   float slowTime = u_time/10.0;
 
-  float wave = nc.x * cos(u_time); 
-  float ss = testf(nc.x, sin(u_time));
-
   nc.x = nc.x - u_time;
   float testWave = nc.x;// - sin(u_time)-1.0;
-  testWave = sin(testWave);
+  testWave = sin(testWave)/10.0;
 
-  float lineUp = smoothstep(nc.y + 0.005, nc.y, testWave);
-  float lineDown = smoothstep(nc.y - 0.005, nc.y, testWave);
+  nc.y = nc.y - 1.0;
+  float lineDown = smoothstep(nc.y - 0.05, nc.y, testWave) - smoothstep(nc.y, nc.y + 0.05, testWave);
 
-  //vec3 finalColor = lineUp * vec3(0.0824, 0.8863, 0.2824) + lineDown * vec3(0.2118, 0.051, 0.9216);
-  vec3 finalColor = vec3(1.0);
-  finalColor = mix(finalColor, vec3(0.2118, 0.051, 0.9216), lineDown);
-  finalColor = mix(finalColor, vec3(00, 1.0, 0.0), lineUp);
-  gl_FragColor = vec4(finalColor, 1.0);
+  vec4 finalColor = vec4(1.0, 1.0, 1.0, 0.0);
+  finalColor = mix(finalColor, vec4(0.2118, 0.051, 0.9216, testWave*20.0), lineDown);
+
+  gl_FragColor = finalColor;
    
 }
 
