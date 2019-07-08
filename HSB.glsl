@@ -50,18 +50,19 @@ void main() {
     //Using polar coordinates instead of cartesian
     //Moves image to the middle. f. ex: 0.0 will be moved to 0.5-middle
     vec2 toCenter = vec2(0.5) - nc;
+    //vec2 toCenter = nc / vec2(0.5);
     
     //Will return a value between -PI and PI(-3.14 to 3.14)
     //Divide by TWO_pi to get values between -.5 and 0.5 and then 
     //add 0.5 to get us in the range 0.0 to 1.0
     float angle = atan(toCenter.y, toCenter.x);
-    angle = angle + u_time;
+    angle = angle + sin(u_time)*10.0;
 
     //The radius will return a maximum of 0.5, because we are calculating distance fomr middle of canvas.
     //So we multiply by two to get a maximum of 1.0(to get the range to be from 0.0 to 1.0)
-    float radius = length(toCenter) * 2.0;
+    float radius = length(toCenter) * 3.0;
 
-    baseColor = hsb2rgb(vec3(ease(nc.x), 1.0, 1.0));
+    baseColor = hsb2rgb(vec3(angle/TWO_PI, sin(radius), 1.0));
 
 
     gl_FragColor = vec4(baseColor, 1.0);

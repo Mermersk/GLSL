@@ -19,7 +19,7 @@ void main() {
 
   nc.x = nc.x - u_time;
   float testWave = nc.x;// - sin(u_time)-1.0;
-  testWave = sin(testWave)/10.0;
+  testWave = sin(testWave)/5.0;
 
   nc.y = nc.y - 1.0;
   float lineDown = smoothstep(nc.y - 0.05, nc.y, testWave) - smoothstep(nc.y, nc.y + 0.05, testWave);
