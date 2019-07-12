@@ -28,12 +28,30 @@ float makeFilledBox(vec2 nc, float howBig, float howMuddy) {
 
 }
 
-float makeOutlineBox(vec2 nc) {
+/*
+Makes an outline of a box.
+Position: value range: 0.0 to 0.49. Determines how far from edge of canvas the box should be. 0.0 will be on the edge while higher values go more towards middle
+and therefore makes also a smaller box.
+thickness: determines how thick the outline of the box is. value range: 0.0 to 0.49
+*/
+float makeOutlineBox(vec2 nc, float position, float thickness) {
+    
+    //float anim = abs(sin(u_time))/2.0;
+    float anim = u_time/4.0;
+    //float thickness = 0.01;
+    //Position value range: 0.0 to 1.0. Position determines how far from the edge of the screen outlineBoc should start.
+    //float position = 0.1;
+    float positionInvert = 1.0 - position;
+    position = anim;
+    positionInvert = 1.0 - anim;
 
-    float b = step(0.1, nc.y) - step(0.2, nc.y) + step(0.1, nc.x) - step(0.9, nc.x);
-    //float a = b.x * b.y;
+    //The last step in b: 1.0 - nc.x "rotates" the canvas 180 degrees
+    float b = step(position, nc.y) - step(position + thickness, nc.y) - step(positionInvert, nc.x) - step(positionInvert, 1.0 - nc.x);
+    float t = step(positionInvert - thickness, nc.y) - step(positionInvert, nc.y) - step(positionInvert, nc.x) - step(positionInvert, 1.0 - nc.x);
+    float r = step(positionInvert - thickness, nc.x) - step(positionInvert, nc.x) - step(positionInvert, nc.y) - step(positionInvert, 1.0 - nc.y);
+    float l = step(position, nc.x) - step(position + thickness, nc.x) - step(positionInvert, nc.y) - step(positionInvert, 1.0 - nc.y);
 
-    return b;
+    return b+t+r+l;
 
 }
 
@@ -49,14 +67,13 @@ void main() {
     //float bottom = step(0.1, nc.y);
     float anim = abs(sin(u_time));
 
-    //vec2 bl = smoothstep(vec2(0.1), vec2(0.2), nc);
-   
-    //vec2 tr = smoothstep(vec2(0.1), vec2(0.2), 1.0 - nc);
+    float blFloat;// = makeOutlineBox(nc, 0.0, 0.01);
+    int loops = 20;
+    if(u_time > 2.0) {
+        blFloat += makeOutlineBox(nc, 0.0, 0.01);
+    }
     
-    float blFloat = makeOutlineBox(nc);
-
-    finalColor = vec3(blFloat); //* vec3(0.3608, 0.9412, 0.0235));
-
+    finalColor = blFloat * vec3(0.149, 0.0, 1.0);
 
     gl_FragColor = vec4(finalColor, 1.0);
 }
