@@ -36,14 +36,14 @@ thickness: determines how thick the outline of the box is. value range: 0.0 to 0
 */
 float makeOutlineBox(vec2 nc, float position, float thickness) {
     
-    //float anim = abs(sin(u_time))/2.0;
-    float anim = u_time/4.0;
+    //float anim = abs(sin(u_time))/1.0;
+    float anim = u_time/10.0;
     //float thickness = 0.01;
     //Position value range: 0.0 to 1.0. Position determines how far from the edge of the screen outlineBoc should start.
     //float position = 0.1;
     float positionInvert = 1.0 - position;
-    position = anim;
-    positionInvert = 1.0 - anim;
+    position += anim;
+    positionInvert -= anim;
 
     //The last step in b: 1.0 - nc.x "rotates" the canvas 180 degrees
     float b = step(position, nc.y) - step(position + thickness, nc.y) - step(positionInvert, nc.x) - step(positionInvert, 1.0 - nc.x);
@@ -60,22 +60,44 @@ void main() {
 
     vec2 nc = gl_FragCoord.xy/u_resolution;
 
-    vec3 finalColor = vec3(1.0);
+    vec4 finalColor = vec4(0.0, 0.0, 0.0, 0.0);
 
     //Everything under 0.1 will be 0.0, anything over will be 1.0
     //float left = step(0.1, nc.x);
     //float bottom = step(0.1, nc.y);
     //float anim = abs(sin(u_time));
 
-    float blFloat;// = makeOutlineBox(nc, 0.0, 0.01);
-    int loops = 20;
-    for(int i = 0; i < 1; i++) {
-        blFloat += makeOutlineBox(nc, 0.0, 0.01);
-        finalColor += blFloat; //* vec3(0.149, 0.0, 1.0);
-        
-    }
-    
-    //finalColor = blFloat * vec3(0.149, 0.0, 1.0);
+    //float oBox = makeOutlineBox(nc, 0.0, 0.01);
+    //float oBox2 = makeOutlineBox(nc, 0.1, 0.01);
 
-    gl_FragColor = vec4(finalColor, 1.0);
+    float inc = 0.0;
+    const int maximum = 30;
+    //inc += 0.1;
+
+    float boxBuffer[10];
+    
+    for (int i = 0; i < maximum; i++) {
+       
+        float ooo = makeOutlineBox(nc, inc, 0.01);
+        //boxBuffer[i] = ooo;
+        inc -= 0.1;
+        finalColor = mix(finalColor, vec4(0.149, 0.0, 1.0, 1.0), ooo);
+            
+    }
+
+
+    //while (u_time < 10.0) {
+        //float ooo = makeOutlineBox(nc, inc, 0.01);
+        //inc += 0.1;
+        //finalColor = mix(finalColor, vec3(0.149, 0.0, 1.0), ooo);
+
+    //}
+
+    //blFloat += makeOutlineBox(nc, 0.0, 0.01);
+    //finalColor += blFloat; //* vec3(0.149, 0.0, 1.0);
+    
+    //finalColor =  oBox * vec3(0.149, 0.0, 1.0);
+    //finalColor = mix(finalColor, vec3(0.149, 0.0, 1.0), oBox2);
+
+    gl_FragColor = finalColor;
 }
