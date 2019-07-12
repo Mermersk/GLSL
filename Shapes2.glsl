@@ -65,15 +65,17 @@ void main() {
     //Everything under 0.1 will be 0.0, anything over will be 1.0
     //float left = step(0.1, nc.x);
     //float bottom = step(0.1, nc.y);
-    float anim = abs(sin(u_time));
+    //float anim = abs(sin(u_time));
 
     float blFloat;// = makeOutlineBox(nc, 0.0, 0.01);
     int loops = 20;
-    if(u_time > 2.0) {
+    for(int i = 0; i < 1; i++) {
         blFloat += makeOutlineBox(nc, 0.0, 0.01);
+        finalColor += blFloat; //* vec3(0.149, 0.0, 1.0);
+        
     }
     
-    finalColor = blFloat * vec3(0.149, 0.0, 1.0);
+    //finalColor = blFloat * vec3(0.149, 0.0, 1.0);
 
     gl_FragColor = vec4(finalColor, 1.0);
 }
