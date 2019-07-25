@@ -11,7 +11,6 @@ uniform float u_time;
 
 void main() {
   
-
   vec2 nc = gl_FragCoord.xy/u_resolution;
   //"Centers" the image, eg: makes 0.0 be in the middle.
   nc = nc / vec2(0.5);
@@ -19,13 +18,13 @@ void main() {
 
   nc.x = nc.x - u_time;
   float testWave = nc.x;// - sin(u_time)-1.0;
-  testWave = sin(testWave)/5.0;
+  testWave = sin(testWave)/2.0;
 
   nc.y = nc.y - 1.0;
-  float lineDown = smoothstep(nc.y - 0.05, nc.y, testWave) - smoothstep(nc.y, nc.y + 0.05, testWave);
+  float lineDown = smoothstep(nc.y - 0.07, nc.y, testWave) - smoothstep(nc.y, nc.y + 0.07, testWave);
 
-  vec4 finalColor = vec4(1.0, 1.0, 1.0, 0.0);
-  finalColor = mix(finalColor, vec4(0.2118, 0.051, 0.9216, testWave*20.0), lineDown);
+  vec4 finalColor = vec4(1.0, 1.0, 1.0, 1.0);
+  finalColor = mix(finalColor, vec4(0.2118, 0.051, 0.9216, 1.0), lineDown);
 
   gl_FragColor = finalColor;
    
