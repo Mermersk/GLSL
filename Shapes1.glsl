@@ -21,7 +21,7 @@ void main() {
     float anim = abs(sin(u_time))/2.0;
     //Insteading of doing it in 2 lines(line 19 and 20), we can save lines by doing this below:
     //It is excatly the same as as in the previous 2 lines. bl = bottom and left.
-    vec2 bl = smoothstep(vec2(anim + 0.99), vec2(anim), nc);
+    vec2 bl = smoothstep(vec2(anim + 1.0), vec2(anim), nc);
     //I "flip the page" to get the top and right borders.
     //Or more accurately I am rotating the canvas by 180° degrees and then doing the same procedure
     vec2 tr = smoothstep(vec2(anim + 0.99), vec2(anim), 1.0 - nc);
