@@ -21,9 +21,9 @@ void main(){
     //calculates how far away each pixel is from the center
     float d = distance(nc.y, distanceEpicenter);
     //d = clamp(d, 1.0, 2.0);
-    nc.y = nc.y - u_time;
+    nc.y = nc.y - (u_time/2.0);
     
-    float wavy = nc.y;
+    float wavy = nc.y - u_time;
     wavy =  (sin(wavy)/8.0) / (d+0.5);//((abs(sin(wavy)) / 6.0));
     //float middle = 0.5;
     float light = smoothstep(nc.x - 0.2, nc.x, wavy) - smoothstep(nc.x, nc.x + 0.2, wavy);
